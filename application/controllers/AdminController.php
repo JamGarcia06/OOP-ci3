@@ -89,7 +89,7 @@ class AdminController extends CI_Controller {
 
 
         // Go to admin page
-        redirect('FoodController/index');
+        redirect('AdminController/adminPage');
     }
     else
     {
@@ -99,6 +99,22 @@ class AdminController extends CI_Controller {
         $this->load->view('adminLogin', $data);
     }
 }
+
+
+    public function logout()
+    {
+    // Clear specific admin session keys or destroy the entire session
+    $this->session->unset_userdata(['admin_id', 'email', 'is_admin_logged_in']);
+    
+    // Optional: Destroy the full session
+    $this->session->sess_destroy();
+
+    // Set a logout message
+    $this->session->set_flashdata('success', 'You have been logged out successfully.');
+
+    // Redirect to the login page
+    redirect('AdminController/index');
+    }
 
 
       public function adminPage()
